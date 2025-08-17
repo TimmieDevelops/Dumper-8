@@ -2359,7 +2359,7 @@ R"({
 R"({
     return static_cast<T*>(Cast(StaticClass));
 })",
-			.bIsStatic = true, .bIsConst = false, .bIsBodyInline = true
+			.bIsStatic = false, .bIsConst = false, .bIsBodyInline = true
     },
 
 		/* static inline functions */
