@@ -2340,6 +2340,28 @@ R"({
 			.bIsStatic = true, .bIsConst = false, .bIsBodyInline = false
 		},
 
+		PredefinedFunction {
+			.ReturnType = "UObject*",
+			.NameWithParams = "Cast(class UClass* StaticClass)",
+			.NameWithParamsWithoutDefaults = "Cast(class UClass* StaticClass)",
+			.Body = R"({ 
+    return this && this->IsA(StaticClass) ? this : nullptr; 
+})",
+			.bIsStatic = false, .bIsConst = false, .bIsBodyInline = false
+	},
+
+		PredefinedFunction {
+			.CustomComment = "",
+			.CustomTemplateText = "template<typename T>",
+			.ReturnType = "T*",
+			.NameWithParams = "Cast(class UClass* StaticClass = T::StaticClass)",
+			.Body = 
+R"({
+    return static_cast<T*>(this->Cast(StaticClass));
+})",
+			.bIsStatic = false, .bIsConst = false, .bIsBodyInline = false
+    },
+
 		/* static inline functions */
 		PredefinedFunction {
 			.CustomComment = "",
@@ -5994,6 +6016,22 @@ namespace UC
 	static_assert(sizeof(TArray<int32>) == 0x10, "TArray has a wrong size!");
 	static_assert(sizeof(TSet<int32>) == 0x50, "TSet has a wrong size!");
 	static_assert(sizeof(TMap<int32, int32>) == 0x50, "TMap has a wrong size!");
+
+    template <class ObjectType>
+    class TSharedPtr
+    {
+    public:
+        ObjectType* Object;
+        int32 SharedReferenceCount;
+        int32 WeakReferenceCount;
+
+        FORCEINLINE ObjectType* Get() { return Object; }
+        FORCEINLINE ObjectType* Get() const { return Object; }
+
+        FORCEINLINE ObjectType& operator*() { return *Object; }
+        FORCEINLINE const ObjectType& operator*() const { return *Object; }
+        FORCEINLINE ObjectType* operator->() { return Object; }
+    };
 }
 )";
 
