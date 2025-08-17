@@ -2354,7 +2354,7 @@ R"({
 			.CustomComment = "",
 			.CustomTemplateText = "template<typename T>",
 			.ReturnType = "T*",
-			.NameWithParams = "Cast(class UClass* StaticClass = T::StaticClass)",
+			.NameWithParams = "Cast(class UClass* StaticClass = T::StaticClass())",
 			.Body = 
 R"({
     return static_cast<T*>(Cast(StaticClass));
