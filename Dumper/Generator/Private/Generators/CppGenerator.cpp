@@ -2357,9 +2357,9 @@ R"({
 			.NameWithParams = "Cast(class UClass* StaticClass = T::StaticClass)",
 			.Body = 
 R"({
-    return static_cast<T*>(this->Cast(StaticClass));
+    return static_cast<T*>(Cast(StaticClass));
 })",
-			.bIsStatic = false, .bIsConst = false, .bIsBodyInline = false
+			.bIsStatic = true, .bIsConst = false, .bIsBodyInline = true
     },
 
 		/* static inline functions */
